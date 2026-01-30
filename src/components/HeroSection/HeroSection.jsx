@@ -114,6 +114,146 @@
 // export default HeroSection;
 
 
+// import { motion, AnimatePresence } from 'framer-motion';
+// import { useState, useEffect } from 'react';
+
+// const HeroSection = ({ data }) => {
+//   const [currentIndex, setCurrentIndex] = useState(0);
+
+//   const heroImages = [
+//     data.heroImage,
+//     "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=1600&q=90",
+//     "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1600&q=90",
+//   ];
+
+//   useEffect(() => {
+//     const timer = setInterval(() => {
+//       setCurrentIndex((prev) => (prev + 1) % heroImages.length);
+//     }, 5000);
+//     return () => clearInterval(timer);
+//   }, [heroImages.length]);
+
+//   const slideVariants = {
+//     initial: { x: '100%', opacity: 0 },
+//     animate: { x: 0, opacity: 1 },
+//     exit: { x: '-100%', opacity: 0.5 }
+//   };
+
+//   return (
+//     <section className="relative h-screen w-full overflow-hidden bg-black">
+//       {/* Background Slider */}
+//       <div className="absolute inset-0 overflow-hidden">
+//         <AnimatePresence initial={false} mode="popLayout">
+//           <motion.div
+//             key={currentIndex}
+//             variants={slideVariants}
+//             initial="initial"
+//             animate="animate"
+//             exit="exit"
+//             transition={{ 
+//               x: { type: "spring", stiffness: 300, damping: 30 },
+//               opacity: { duration: 0.5 } 
+//             }}
+//             className="absolute inset-0 w-full h-full"
+//           >
+//             <img
+//               src={heroImages[currentIndex]}
+//               alt="Glam Beauty"
+//               className="w-full h-full object-cover"
+//             />
+//             <div className="absolute inset-0 bg-black/50" />
+//             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent md:bg-gradient-to-r md:from-black/70 md:via-transparent md:to-transparent" />
+//           </motion.div>
+//         </AnimatePresence>
+//       </div>
+
+//       {/* Content Area - Added pt-24 for Mobile Padding */}
+//       <div className="relative z-20 h-full flex items-center px-6 sm:px-10 md:px-20 pt-24 md:pt-0">
+//         <div className="max-w-4xl text-left">
+          
+//           {/* Eyebrow */}
+//           <motion.div
+//             initial={{ opacity: 0, x: -30 }}
+//             animate={{ opacity: 1, x: 0 }}
+//             className="flex items-center gap-3 mb-4 md:mb-6"
+//           >
+//             <span className="w-8 md:w-12 h-[1px] bg-pink-500" />
+//             <p className="text-white text-[9px] md:text-[10px] uppercase tracking-[0.4em] font-bold">
+//               {data.eyebrow} The Glam Street
+//             </p>
+//           </motion.div>
+
+//           {/* Headline - Responsive Text Size */}
+//           <motion.h1
+//             key={`title-${currentIndex}`}
+//             initial={{ opacity: 0, y: 30 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 0.8 }}
+//             className="font-serif text-4xl sm:text-6xl lg:text-8xl text-white leading-[1.1] mb-6 md:mb-8"
+//           >
+//             Own Your <span className="italic font-light text-pink-100">Glam.</span> <br />
+//             Own Your <span className="text-pink-500">Confidence.</span>
+//           </motion.h1>
+
+//           {/* Subheadline - Mobile hidden/clutter fix */}
+//           <motion.p
+//             initial={{ opacity: 0 }}
+//             animate={{ opacity: 1 }}
+//             transition={{ delay: 0.4 }}
+//             className="text-white/70 text-sm md:text-lg max-w-lg leading-relaxed mb-8 md:mb-12 font-light"
+//           >
+//             {data.subheadline}
+//           </motion.p>
+
+//           {/* Action Buttons - Stacked on Mobile */}
+//           <motion.div
+//             initial={{ opacity: 0, y: 20 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{ delay: 0.6 }}
+//             className="flex flex-col sm:flex-row gap-4 md:gap-6"
+//           >
+//             <a
+//               href={data.cta.primary.href}
+//               className="group relative overflow-hidden px-8 py-4 bg-white text-black text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-center"
+//             >
+//               <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+//                 {data.cta.primary.label}
+//               </span>
+//               <div className="absolute inset-0 bg-pink-600 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+//             </a>
+            
+//             <a
+//               href={data.cta.secondary.href}
+//               className="px-8 py-4 border border-white/40 text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-center hover:border-pink-500 hover:text-pink-500 transition-all"
+//             >
+//               {data.cta.secondary.label}
+//             </a>
+//           </motion.div>
+//         </div>
+//       </div>
+
+//       {/* Progress Bars - Adjusted for Mobile Visibility */}
+//       <div className="absolute bottom-8 md:bottom-12 left-6 md:left-20 right-6 md:right-auto flex gap-3 z-30">
+//         {heroImages.map((_, idx) => (
+//           <div key={idx} className="h-[2px] md:h-1 flex-1 md:w-16 bg-white/20 overflow-hidden rounded-full">
+//             {idx === currentIndex && (
+//               <motion.div
+//                 initial={{ x: '-100%' }}
+//                 animate={{ x: 0 }}
+//                 transition={{ duration: 5, ease: "linear" }}
+//                 className="h-full bg-pink-500"
+//               />
+//             )}
+//             {idx < currentIndex && <div className="h-full w-full bg-white/60" />}
+//           </div>
+//         ))}
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default HeroSection;
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -133,27 +273,19 @@ const HeroSection = ({ data }) => {
     return () => clearInterval(timer);
   }, [heroImages.length]);
 
-  const slideVariants = {
-    initial: { x: '100%', opacity: 0 },
-    animate: { x: 0, opacity: 1 },
-    exit: { x: '-100%', opacity: 0.5 }
-  };
-
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black">
-      {/* Background Slider */}
-      <div className="absolute inset-0 overflow-hidden">
+    // min-h-screen ensure karega ki content kabhi screen se bahar na jaye niche se
+    <section className="relative min-h-screen w-full overflow-hidden bg-black flex flex-col">
+      
+      {/* Background Slider - Absolute remains same */}
+      <div className="absolute inset-0 z-0">
         <AnimatePresence initial={false} mode="popLayout">
           <motion.div
             key={currentIndex}
-            variants={slideVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={{ 
-              x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.5 } 
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
             className="absolute inset-0 w-full h-full"
           >
             <img
@@ -161,81 +293,71 @@ const HeroSection = ({ data }) => {
               alt="Glam Beauty"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/50" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent md:bg-gradient-to-r md:from-black/70 md:via-transparent md:to-transparent" />
+            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20" />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Content Area - Added pt-24 for Mobile Padding */}
-      <div className="relative z-20 h-full flex items-center px-6 sm:px-10 md:px-20 pt-24 md:pt-0">
-        <div className="max-w-4xl text-left">
+      {/* Content Area - Fix for Title Cutting */}
+      <div className="relative z-20 flex-grow flex items-center px-6 sm:px-10 md:px-20 py-20 md:py-0">
+        <div className="max-w-4xl w-full mt-10 md:mt-0"> {/* mt-10 deals with top bar spacing */}
           
           {/* Eyebrow */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3 mb-4 md:mb-6"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-3 mb-4"
           >
-            <span className="w-8 md:w-12 h-[1px] bg-pink-500" />
-            <p className="text-white text-[9px] md:text-[10px] uppercase tracking-[0.4em] font-bold">
-              {data.eyebrow} The Glam Street
+            <span className="w-8 h-[1px] bg-pink-500" />
+            <p className="text-white text-[10px] uppercase tracking-[0.4em] font-bold">
+              {data.eyebrow || "The Glam Street"}
             </p>
           </motion.div>
 
-          {/* Headline - Responsive Text Size */}
+          {/* Headline - Responsive Text Size logic changed */}
           <motion.h1
             key={`title-${currentIndex}`}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="font-serif text-4xl sm:text-6xl lg:text-8xl text-white leading-[1.1] mb-6 md:mb-8"
+            className="font-serif text-[2.5rem] sm:text-6xl lg:text-8xl text-white leading-[1.1] mb-6"
           >
             Own Your <span className="italic font-light text-pink-100">Glam.</span> <br />
             Own Your <span className="text-pink-500">Confidence.</span>
           </motion.h1>
 
-          {/* Subheadline - Mobile hidden/clutter fix */}
+          {/* Subheadline */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-white/70 text-sm md:text-lg max-w-lg leading-relaxed mb-8 md:mb-12 font-light"
+            className="text-white/70 text-sm md:text-lg max-w-lg leading-relaxed mb-8 font-light"
           >
             {data.subheadline}
           </motion.p>
 
-          {/* Action Buttons - Stacked on Mobile */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 md:gap-6"
-          >
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4">
             <a
               href={data.cta.primary.href}
-              className="group relative overflow-hidden px-8 py-4 bg-white text-black text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-center"
+              className="px-8 py-4 bg-white text-black text-[11px] font-bold uppercase tracking-widest text-center hover:bg-pink-600 hover:text-white transition-all"
             >
-              <span className="relative z-10 group-hover:text-white transition-colors duration-300">
-                {data.cta.primary.label}
-              </span>
-              <div className="absolute inset-0 bg-pink-600 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+              {data.cta.primary.label}
             </a>
             
             <a
               href={data.cta.secondary.href}
-              className="px-8 py-4 border border-white/40 text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-center hover:border-pink-500 hover:text-pink-500 transition-all"
+              className="px-8 py-4 border border-white/40 text-white text-[11px] font-bold uppercase tracking-widest text-center rounded-full hover:border-pink-500 transition-all"
             >
               {data.cta.secondary.label}
             </a>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Progress Bars - Adjusted for Mobile Visibility */}
-      <div className="absolute bottom-8 md:bottom-12 left-6 md:left-20 right-6 md:right-auto flex gap-3 z-30">
+      {/* Progress Bars - Shifted slightly for better mobile clearance */}
+      <div className="relative z-30 px-6 pb-10 md:absolute md:bottom-12 md:left-20 md:right-auto flex gap-3">
         {heroImages.map((_, idx) => (
-          <div key={idx} className="h-[2px] md:h-1 flex-1 md:w-16 bg-white/20 overflow-hidden rounded-full">
+          <div key={idx} className="h-[2px] flex-1 md:w-16 bg-white/20 overflow-hidden rounded-full">
             {idx === currentIndex && (
               <motion.div
                 initial={{ x: '-100%' }}
