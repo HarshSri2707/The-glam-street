@@ -376,6 +376,121 @@
 // export default HeroSection;
 
 
+// import { motion, AnimatePresence } from 'framer-motion';
+// import { useState, useEffect } from 'react';
+
+// const HeroSection = ({ data }) => {
+//   const [currentIndex, setCurrentIndex] = useState(0);
+
+//   const heroImages = [
+//     data.heroImage,
+//     "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=1600&q=90",
+//     "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1600&q=90",
+//   ];
+
+//   useEffect(() => {
+//     const timer = setInterval(() => {
+//       setCurrentIndex((prev) => (prev + 1) % heroImages.length);
+//     }, 5000);
+//     return () => clearInterval(timer);
+//   }, [heroImages.length]);
+
+//   return (
+//     <section className="relative w-full bg-black overflow-hidden h-[580px] sm:h-[700px] lg:h-[85vh] xl:h-screen">
+      
+//       {/* Background Container */}
+//       <div className="absolute inset-0 z-0 w-full h-full">
+//         <AnimatePresence mode="wait">
+//           <motion.div
+//             key={currentIndex}
+//             initial={{ opacity: 0, scale: 1.05 }}
+//             animate={{ opacity: 1, scale: 1 }}
+//             exit={{ opacity: 0 }}
+//             transition={{ duration: 1.2 }}
+//             className="absolute inset-0 w-full h-full"
+//           >
+//             <img
+//               src={heroImages[currentIndex]}
+//               alt="Glam Beauty"
+//               className="w-full h-full object-cover object-center"
+//             />
+//             {/* Optimized Overlays */}
+//             <div className="absolute inset-0 bg-black/40 lg:bg-transparent" />
+//             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent lg:bg-gradient-to-r lg:from-black/70 lg:via-transparent lg:to-transparent" />
+//           </motion.div>
+//         </AnimatePresence>
+//       </div>
+
+//       {/* Content Area */}
+//       <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 h-full flex flex-col justify-end pb-12 md:justify-center md:pb-0">
+//         <div className="max-w-4xl">
+          
+//           {/* Eyebrow */}
+//           <motion.div
+//             initial={{ opacity: 0, x: -15 }}
+//             animate={{ opacity: 1, x: 0 }}
+//             className="flex items-center gap-2 mb-3 md:mb-4"
+//           >
+//             <span className="w-6 md:w-8 h-[1px] bg-pink-500" />
+//             <p className="text-white text-[8px] md:text-[11px] uppercase tracking-[0.3em] font-bold">
+//               {data.eyebrow || "The Glam Street"}
+//             </p>
+//           </motion.div>
+
+//           {/* Headline - Optimized for Mobile (Text sizes reduced) */}
+//           <motion.h1
+//             key={`title-${currentIndex}`}
+//             initial={{ opacity: 0, y: 15 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             className="font-serif text-white leading-[1.15] mb-4 md:mb-7"
+//             style={{ 
+//               fontSize: "clamp(1.8rem, 7vh, 5rem)", // Mobile par chota, Laptop par perfect
+//               maxWidth: "850px"
+//             }}
+//           >
+//             Own Your <span className="italic font-light text-pink-100">Glam.</span> <br className="hidden xs:block" />
+//             Own Your <span className="text-pink-500">Confidence.</span>
+//           </motion.h1>
+
+//           {/* Subheadline - Shorter and tighter for mobile */}
+//           <motion.p
+//             initial={{ opacity: 0 }}
+//             animate={{ opacity: 1 }}
+//             className="text-white/70 font-light leading-snug md:leading-relaxed mb-6 md:mb-10"
+//             style={{ 
+//               fontSize: "clamp(0.85rem, 1.8vh, 1.1rem)",
+//               maxWidth: "420px"
+//             }}
+//           >
+//             {data.subheadline}
+//           </motion.p>
+
+//           {/* Buttons - Slimmer on mobile to stay within screen */}
+//           <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+//             <a
+//               href={data.cta.primary.href}
+//               className="px-6 py-3 md:px-10 md:py-4 bg-pink-600 text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-center rounded-full shadow-lg active:scale-95 transition-transform"
+//             >
+//               {data.cta.primary.label}
+//             </a>
+//             <a
+//               href={data.cta.secondary.href}
+//               className="px-6 py-3 md:px-10 md:py-4 border border-white/30 text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-center rounded-full backdrop-blur-md active:scale-95 transition-transform"
+//             >
+//               {data.cta.secondary.label}
+//             </a>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Fade to blend with next section */}
+//       <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black to-transparent z-10" />
+//     </section>
+//   );
+// };
+
+// export default HeroSection;
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -396,7 +511,7 @@ const HeroSection = ({ data }) => {
   }, [heroImages.length]);
 
   return (
-    <section className="relative w-full bg-black overflow-hidden h-[580px] sm:h-[700px] lg:h-[85vh] xl:h-screen">
+    <section className="relative w-full bg-black overflow-hidden h-[600px] sm:h-[700px] lg:h-[85vh] xl:h-screen">
       
       {/* Background Container */}
       <div className="absolute inset-0 z-0 w-full h-full">
@@ -414,68 +529,66 @@ const HeroSection = ({ data }) => {
               alt="Glam Beauty"
               className="w-full h-full object-cover object-center"
             />
-            {/* Optimized Overlays */}
             <div className="absolute inset-0 bg-black/40 lg:bg-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent lg:bg-gradient-to-r lg:from-black/70 lg:via-transparent lg:to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent lg:bg-gradient-to-r lg:from-black/70 lg:via-transparent lg:to-transparent" />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Content Area */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 h-full flex flex-col justify-end pb-12 md:justify-center md:pb-0">
+      {/* Content Area - FIXED FOR ALL SCREENS */}
+      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 h-full flex flex-col justify-center pt-10 md:pt-0">
         <div className="max-w-4xl">
           
           {/* Eyebrow */}
           <motion.div
             initial={{ opacity: 0, x: -15 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2 mb-3 md:mb-4"
+            className="flex items-center gap-2 mb-3"
           >
-            <span className="w-6 md:w-8 h-[1px] bg-pink-500" />
-            <p className="text-white text-[8px] md:text-[11px] uppercase tracking-[0.3em] font-bold">
+            <span className="w-6 h-[1px] bg-pink-500" />
+            <p className="text-white text-[9px] md:text-[11px] uppercase tracking-[0.3em] font-bold">
               {data.eyebrow || "The Glam Street"}
             </p>
           </motion.div>
 
-          {/* Headline - Optimized for Mobile (Text sizes reduced) */}
+          {/* Headline - Balanced size for Z Flip/Nord/Moto */}
           <motion.h1
             key={`title-${currentIndex}`}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-serif text-white leading-[1.15] mb-4 md:mb-7"
+            className="font-serif text-white leading-[1.1] md:leading-[1.15] mb-5"
             style={{ 
-              fontSize: "clamp(1.8rem, 7vh, 5rem)", // Mobile par chota, Laptop par perfect
+              fontSize: "clamp(2rem, 8vw, 5rem)", 
               maxWidth: "850px"
             }}
           >
-            Own Your <span className="italic font-light text-pink-100">Glam.</span> <br className="hidden xs:block" />
+            Own Your <span className="italic font-light text-pink-100">Glam.</span> <br />
             Own Your <span className="text-pink-500">Confidence.</span>
           </motion.h1>
 
-          {/* Subheadline - Shorter and tighter for mobile */}
+          {/* Subheadline - Restricted width to prevent edge cutting */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-white/70 font-light leading-snug md:leading-relaxed mb-6 md:mb-10"
+            className="text-white/70 font-light leading-relaxed mb-8 md:mb-10 max-w-[280px] xs:max-w-[350px] md:max-w-[420px]"
             style={{ 
-              fontSize: "clamp(0.85rem, 1.8vh, 1.1rem)",
-              maxWidth: "420px"
+              fontSize: "clamp(0.85rem, 4vw, 1.1rem)"
             }}
           >
             {data.subheadline}
           </motion.p>
 
-          {/* Buttons - Slimmer on mobile to stay within screen */}
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+          {/* Buttons - Mobile Stack & Desktop Side-by-side */}
+          <div className="flex flex-col sm:flex-row gap-3.5 md:gap-4 w-full xs:w-auto">
             <a
               href={data.cta.primary.href}
-              className="px-6 py-3 md:px-10 md:py-4 bg-pink-600 text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-center rounded-full shadow-lg active:scale-95 transition-transform"
+              className="w-full sm:w-auto px-10 py-4 bg-pink-600 text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-center rounded-full shadow-lg active:scale-95 transition-all"
             >
               {data.cta.primary.label}
             </a>
             <a
               href={data.cta.secondary.href}
-              className="px-6 py-3 md:px-10 md:py-4 border border-white/30 text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-center rounded-full backdrop-blur-md active:scale-95 transition-transform"
+              className="w-full sm:w-auto px-10 py-4 border border-white/30 text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-center rounded-full backdrop-blur-md active:scale-95 transition-all"
             >
               {data.cta.secondary.label}
             </a>
@@ -483,8 +596,7 @@ const HeroSection = ({ data }) => {
         </div>
       </div>
 
-      {/* Fade to blend with next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black to-transparent z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent z-10" />
     </section>
   );
 };
