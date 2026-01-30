@@ -274,18 +274,17 @@ const HeroSection = ({ data }) => {
   }, [heroImages.length]);
 
   return (
-    // min-h-screen ensure karega ki content kabhi screen se bahar na jaye niche se
-    <section className="relative min-h-screen w-full overflow-hidden bg-black flex flex-col">
+    <section className="relative min-h-[100vh] w-full overflow-hidden bg-black flex flex-col justify-center">
       
-      {/* Background Slider - Absolute remains same */}
+      {/* Background Slider */}
       <div className="absolute inset-0 z-0">
-        <AnimatePresence initial={false} mode="popLayout">
+        <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
             className="absolute inset-0 w-full h-full"
           >
             <img
@@ -293,21 +292,22 @@ const HeroSection = ({ data }) => {
               alt="Glam Beauty"
               className="w-full h-full object-cover"
             />
+            {/* Dark Overlays for Text Legibility */}
             <div className="absolute inset-0 bg-black/40" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60 md:bg-gradient-to-r md:from-black/80 md:to-transparent" />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Content Area - Fix for Title Cutting */}
-      <div className="relative z-20 flex-grow flex items-center px-6 sm:px-10 md:px-20 py-20 md:py-0">
-        <div className="max-w-4xl w-full mt-10 md:mt-0"> {/* mt-10 deals with top bar spacing */}
+      {/* Content Area - Responsive Centering */}
+      <div className="relative z-20 w-full px-6 sm:px-10 md:px-20 py-10">
+        <div className="max-w-4xl">
           
           {/* Eyebrow */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-3 mb-4"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-3 mb-6"
           >
             <span className="w-8 h-[1px] bg-pink-500" />
             <p className="text-white text-[10px] uppercase tracking-[0.4em] font-bold">
@@ -315,12 +315,13 @@ const HeroSection = ({ data }) => {
             </p>
           </motion.div>
 
-          {/* Headline - Responsive Text Size logic changed */}
+          {/* Headline - Responsive Sizes to prevent cutting */}
           <motion.h1
             key={`title-${currentIndex}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-serif text-[2.5rem] sm:text-6xl lg:text-8xl text-white leading-[1.1] mb-6"
+            transition={{ duration: 0.8 }}
+            className="font-serif text-[2.6rem] sm:text-6xl lg:text-8xl text-white leading-[1.1] mb-6"
           >
             Own Your <span className="italic font-light text-pink-100">Glam.</span> <br />
             Own Your <span className="text-pink-500">Confidence.</span>
@@ -330,46 +331,44 @@ const HeroSection = ({ data }) => {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-white/70 text-sm md:text-lg max-w-lg leading-relaxed mb-8 font-light"
+            transition={{ delay: 0.3 }}
+            className="text-white/70 text-sm md:text-lg max-w-lg leading-relaxed mb-10 font-light"
           >
             {data.subheadline}
           </motion.p>
 
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          {/* Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="flex flex-col sm:flex-row gap-4"
+          >
             <a
               href={data.cta.primary.href}
-              className="px-8 py-4 bg-white text-black text-[11px] font-bold uppercase tracking-widest text-center hover:bg-pink-600 hover:text-white transition-all"
+              className="px-10 py-4 bg-white text-black text-[11px] font-bold uppercase tracking-widest text-center hover:bg-pink-600 hover:text-white transition-all duration-300"
             >
               {data.cta.primary.label}
             </a>
             
             <a
               href={data.cta.secondary.href}
-              className="px-8 py-4 border border-white/40 text-white text-[11px] font-bold uppercase tracking-widest text-center rounded-full hover:border-pink-500 transition-all"
+              className="px-10 py-4 border border-white/40 text-white text-[11px] font-bold uppercase tracking-widest text-center rounded-full hover:border-pink-500 hover:text-pink-500 transition-all duration-300"
             >
               {data.cta.secondary.label}
             </a>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Progress Bars - Shifted slightly for better mobile clearance */}
-      <div className="relative z-30 px-6 pb-10 md:absolute md:bottom-12 md:left-20 md:right-auto flex gap-3">
-        {heroImages.map((_, idx) => (
-          <div key={idx} className="h-[2px] flex-1 md:w-16 bg-white/20 overflow-hidden rounded-full">
-            {idx === currentIndex && (
-              <motion.div
-                initial={{ x: '-100%' }}
-                animate={{ x: 0 }}
-                transition={{ duration: 5, ease: "linear" }}
-                className="h-full bg-pink-500"
-              />
-            )}
-            {idx < currentIndex && <div className="h-full w-full bg-white/60" />}
-          </div>
-        ))}
-      </div>
+      {/* Subtle Scroll Indicator (instead of bars) */}
+      <motion.div 
+        animate={{ y: [0, 8, 0] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
+      >
+        <div className="w-[1px] h-12 bg-gradient-to-b from-white/60 to-transparent" />
+      </motion.div>
     </section>
   );
 };

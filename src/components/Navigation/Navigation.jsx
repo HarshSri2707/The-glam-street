@@ -164,6 +164,139 @@
 // export default Navigation;
 
 
+// import { useState, useEffect } from 'react';
+// import { motion, AnimatePresence } from 'framer-motion';
+
+// const Navigation = ({ data }) => {
+//   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+//   const [isScrolled, setIsScrolled] = useState(false);
+
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       // Jab scroll karein tab halki shadow aaye (niche wale code ki tarah)
+//       setIsScrolled(window.scrollY > 20);
+//     };
+//     window.addEventListener('scroll', handleScroll);
+//     return () => window.removeEventListener('scroll', handleScroll);
+//   }, []);
+
+//   // Mobile menu scroll lock
+//   const toggleMenu = () => {
+//     setIsMobileMenuOpen(!isMobileMenuOpen);
+//     if (!isMobileMenuOpen) {
+//       document.body.style.overflow = 'hidden';
+//     } else {
+//       document.body.style.overflow = 'unset';
+//     }
+//   };
+
+//   return (
+//     <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white ${
+//       isScrolled || isMobileMenuOpen ? 'shadow-md' : 'border-b border-transparent'
+//     }`}>
+//       {/* Top Guard: Mobile par bounce hone par piche ka na dikhe */}
+//       <div className="absolute -top-10 left-0 right-0 h-10 bg-white" />
+
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//         <div className="flex justify-between items-center h-16 lg:h-20">
+          
+//           {/* Logo - From Data */}
+//           <a href="/" className="flex items-center">
+//             <h1 className="font-serif text-xl md:text-2xl font-bold text-glam-burgundy tracking-tighter">
+//               {data.logo}<span className="text-pink-500">.</span>
+//             </h1>
+//           </a>
+
+//           {/* Desktop Navigation - Clean like Unfiltered Money */}
+//           <div className="hidden lg:flex items-center gap-8">
+//             {data.menu.map((item, index) => (
+//               <a
+//                 key={index}
+//                 href={item.href}
+//                 className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-700 hover:text-pink-600 transition-colors"
+//               >
+//                 {item.label}
+//               </a>
+//             ))}
+//           </div>
+
+//           {/* Right Actions - Search, Cart & Toggle */}
+//           <div className="flex items-center gap-2 md:gap-4">
+//             {/* Search Button */}
+//             <button className="p-2 text-slate-700 hover:text-pink-600 transition-colors" aria-label="Search">
+//               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+//               </svg>
+//             </button>
+
+//             {/* Cart Button */}
+//             <button className="p-2 text-slate-700 hover:text-pink-600 transition-colors relative" aria-label="Cart">
+//               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+//               </svg>
+//               <span className="absolute top-1 right-1 w-4 h-4 bg-pink-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">0</span>
+//             </button>
+
+//             {/* Mobile Menu Toggle Button */}
+//             <button
+//               className="lg:hidden p-2 rounded-lg text-slate-700"
+//               onClick={toggleMenu}
+//               aria-label="Toggle menu"
+//             >
+//               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                 {isMobileMenuOpen ? (
+//                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+//                 ) : (
+//                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+//                 )}
+//               </svg>
+//             </button>
+
+//             {/* Desktop CTA */}
+//             <a href={data.cta.href} className="hidden md:block px-6 py-2.5 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-pink-600 transition-all">
+//               {data.cta.label}
+//             </a>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Mobile Menu - Solid White and Fixed */}
+//       <AnimatePresence>
+//         {isMobileMenuOpen && (
+//           <motion.div
+//             className="fixed top-16 left-0 right-0 bottom-0 bg-white z-40 overflow-y-auto lg:hidden"
+//             initial={{ opacity: 0, y: -10 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             exit={{ opacity: 0, y: -10 }}
+//             transition={{ duration: 0.2 }}
+//           >
+//             <div className="px-6 py-10 space-y-6 pb-24">
+//               {data.menu.map((item, index) => (
+//                 <a
+//                   key={index}
+//                   href={item.href}
+//                   onClick={toggleMenu}
+//                   className="block text-2xl font-serif italic text-slate-900 border-b border-slate-50 pb-4"
+//                 >
+//                   {item.label}
+//                 </a>
+//               ))}
+//               <a
+//                 href={data.cta.href}
+//                 className="block w-full py-4 bg-pink-600 text-white text-center rounded-xl font-bold uppercase tracking-widest text-xs"
+//               >
+//                 {data.cta.label}
+//               </a>
+//             </div>
+//           </motion.div>
+//         )}
+//       </AnimatePresence>
+//     </nav>
+//   );
+// };
+
+// export default Navigation;
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -173,125 +306,123 @@ const Navigation = ({ data }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Jab scroll karein tab halki shadow aaye (niche wale code ki tarah)
-      setIsScrolled(window.scrollY > 20);
+      // 10px scroll hote hi state change
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Mobile menu scroll lock
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-    if (!isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    document.body.style.overflow = !isMobileMenuOpen ? 'hidden' : 'unset';
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white ${
-      isScrolled || isMobileMenuOpen ? 'shadow-md' : 'border-b border-transparent'
-    }`}>
-      {/* Top Guard: Mobile par bounce hone par piche ka na dikhe */}
-      <div className="absolute -top-10 left-0 right-0 h-10 bg-white" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 lg:h-20">
-          
-          {/* Logo - From Data */}
-          <a href="/" className="flex items-center">
-            <h1 className="font-serif text-xl md:text-2xl font-bold text-glam-burgundy tracking-tighter">
-              {data.logo}<span className="text-pink-500">.</span>
-            </h1>
-          </a>
-
-          {/* Desktop Navigation - Clean like Unfiltered Money */}
-          <div className="hidden lg:flex items-center gap-8">
-            {data.menu.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-700 hover:text-pink-600 transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
-
-          {/* Right Actions - Search, Cart & Toggle */}
-          <div className="flex items-center gap-2 md:gap-4">
-            {/* Search Button */}
-            <button className="p-2 text-slate-700 hover:text-pink-600 transition-colors" aria-label="Search">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </button>
-
-            {/* Cart Button */}
-            <button className="p-2 text-slate-700 hover:text-pink-600 transition-colors relative" aria-label="Cart">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
-              <span className="absolute top-1 right-1 w-4 h-4 bg-pink-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">0</span>
-            </button>
-
-            {/* Mobile Menu Toggle Button */}
-            <button
-              className="lg:hidden p-2 rounded-lg text-slate-700"
-              onClick={toggleMenu}
-              aria-label="Toggle menu"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {isMobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-
-            {/* Desktop CTA */}
-            <a href={data.cta.href} className="hidden md:block px-6 py-2.5 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-pink-600 transition-all">
-              {data.cta.label}
+    <>
+      {/* Main Nav */}
+      <nav 
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+          isScrolled || isMobileMenuOpen 
+            ? 'bg-white/90 backdrop-blur-md shadow-sm py-2' 
+            : 'bg-transparent py-4'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-5 sm:px-10">
+          <div className="flex justify-between items-center h-14 md:h-16">
+            
+            {/* Logo */}
+            <a href="/" className="relative z-[110]">
+              <h1 className={`font-serif text-xl md:text-2xl font-bold tracking-tighter transition-colors duration-300 ${
+                !isScrolled && !isMobileMenuOpen ? 'text-white' : 'text-slate-900'
+              }`}>
+                {data.logo}<span className="text-pink-500">.</span>
+              </h1>
             </a>
-          </div>
-        </div>
-      </div>
 
-      {/* Mobile Menu - Solid White and Fixed */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            className="fixed top-16 left-0 right-0 bottom-0 bg-white z-40 overflow-y-auto lg:hidden"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="px-6 py-10 space-y-6 pb-24">
+            {/* Desktop Menu */}
+            <div className="hidden lg:flex items-center gap-10">
               {data.menu.map((item, index) => (
                 <a
                   key={index}
                   href={item.href}
-                  onClick={toggleMenu}
-                  className="block text-2xl font-serif italic text-slate-900 border-b border-slate-50 pb-4"
+                  className={`text-[11px] font-bold uppercase tracking-[0.2em] transition-colors ${
+                    isScrolled ? 'text-slate-600 hover:text-pink-600' : 'text-white/80 hover:text-white'
+                  }`}
                 >
                   {item.label}
                 </a>
               ))}
-              <a
-                href={data.cta.href}
-                className="block w-full py-4 bg-pink-600 text-white text-center rounded-xl font-bold uppercase tracking-widest text-xs"
+            </div>
+
+            {/* Icons & Toggle */}
+            <div className="flex items-center gap-3">
+              <button className={`p-2 transition-colors ${!isScrolled && !isMobileMenuOpen ? 'text-white' : 'text-slate-700'}`}>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+
+              {/* Mobile Menu Toggle - Unique Design */}
+              <button
+                className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 z-[110]"
+                onClick={toggleMenu}
               >
+                <span className={`h-0.5 w-6 transition-all duration-300 ${
+                  isMobileMenuOpen ? 'rotate-45 translate-y-2 bg-slate-900' : (!isScrolled ? 'bg-white' : 'bg-slate-900')
+                }`} />
+                <span className={`h-0.5 w-6 transition-all duration-300 ${
+                  isMobileMenuOpen ? 'opacity-0' : (!isScrolled ? 'bg-white' : 'bg-slate-900')
+                }`} />
+                <span className={`h-0.5 w-6 transition-all duration-300 ${
+                  isMobileMenuOpen ? '-rotate-45 -translate-y-2 bg-slate-900' : (!isScrolled ? 'bg-white' : 'bg-slate-900')
+                }`} />
+              </button>
+
+              {/* Desktop CTA */}
+              <a href={data.cta.href} className="hidden md:block px-7 py-2.5 bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-pink-700 transition-all shadow-lg shadow-pink-500/20">
                 {data.cta.label}
               </a>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+          </div>
+        </div>
+
+        {/* Mobile Fullscreen Menu */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed inset-0 bg-white z-[100] flex flex-col justify-center px-10"
+            >
+              <div className="space-y-8">
+                {data.menu.map((item, index) => (
+                  <motion.a
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    key={index}
+                    href={item.href}
+                    onClick={toggleMenu}
+                    className="block text-4xl font-serif italic text-slate-900"
+                  >
+                    {item.label}
+                  </motion.a>
+                ))}
+              </div>
+              
+              <div className="absolute bottom-12 left-10 right-10">
+                <a href={data.cta.href} className="block w-full py-5 bg-slate-900 text-white text-center rounded-2xl font-bold uppercase tracking-[0.2em] text-xs">
+                  {data.cta.label}
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+    </>
   );
 };
 

@@ -216,9 +216,7 @@ const RitualSection = ({ data }) => {
 
             {/* Mobile Header (Overlay) */}
             <div className="absolute bottom-8 left-0 right-0 text-center lg:hidden pointer-events-none">
-              <h2 className="text-white font-serif text-4xl drop-shadow-xl italic">
-                {data.title}
-              </h2>
+             
             </div>
           </div>
 
