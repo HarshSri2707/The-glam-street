@@ -582,6 +582,7 @@ const Navigation = ({ data }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // Scroll logic to change navbar background
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -592,7 +593,6 @@ const Navigation = ({ data }) => {
 
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-    // Body scroll freeze only if menu is open
     if (!isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -619,7 +619,7 @@ const Navigation = ({ data }) => {
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-10">
-            {data.menu.map((item, index) => (
+            {data.menu && data.menu.map((item, index) => (
               <a
                 key={index}
                 href={item.href}
@@ -640,10 +640,11 @@ const Navigation = ({ data }) => {
               </svg>
             </button>
 
-            {/* Mobile Toggle - Icons will now switch color correctly */}
+            {/* Mobile Toggle Button */}
             <button
               className="lg:hidden p-2 relative z-[130]"
               onClick={toggleMenu}
+              aria-label="Toggle Menu"
             >
               <div className="w-6 flex flex-col items-end gap-1.5">
                 <span className={`h-0.5 transition-all duration-300 rounded-full ${isMobileMenuOpen ? 'w-6 rotate-45 translate-y-2 bg-slate-900' : `w-6 ${!isScrolled ? 'bg-white' : 'bg-slate-900'}`}`} />
@@ -652,9 +653,9 @@ const Navigation = ({ data }) => {
               </div>
             </button>
 
-            {/* Desktop CTA */}
-            <a href={data.cta.href} className="hidden md:block px-6 py-2.5 bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-pink-700 transition-all shadow-lg shadow-pink-500/20">
-              {data.cta.label}
+            {/* Desktop CTA (Pink) */}
+            <a href={data.cta?.href || "#"} className="hidden md:block px-6 py-2.5 bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-pink-700 transition-all shadow-lg">
+              {data.cta?.label || "Support"}
             </a>
           </div>
         </div>
@@ -664,29 +665,27 @@ const Navigation = ({ data }) => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'tween', duration: 0.4 }}
-            className="fixed inset-0 bg-white z-[110] lg:hidden flex flex-col overflow-y-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-white z-[110] lg:hidden flex flex-col"
           >
-            {/* Luxe Decorative Elements */}
-            <div className="absolute top-20 right-[-10%] w-64 h-64 bg-pink-100/40 rounded-full blur-[80px] -z-10" />
+            {/* Background Texture */}
+            <div className="absolute top-0 right-0 w-full h-64 bg-gradient-to-b from-pink-50/50 to-transparent -z-10" />
             
-            <div className="flex-grow flex flex-col px-8 pt-24 pb-12">
-              <div className="space-y-6">
-                {data.menu.map((item, index) => (
+            <div className="flex-grow flex flex-col px-8 pt-24 pb-12 overflow-y-auto">
+              <div className="flex flex-col space-y-2">
+                {data.menu && data.menu.map((item, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="border-b border-gray-50 pb-5"
+                    transition={{ delay: index * 0.05 }}
                   >
                     <a
                       href={item.href}
                       onClick={toggleMenu}
-                      className="block text-4xl font-serif italic text-slate-900 active:text-pink-600 transition-colors"
+                      className="block py-4 text-xl font-serif text-slate-800 border-b border-slate-50 active:text-pink-600"
                     >
                       {item.label}
                     </a>
@@ -694,22 +693,26 @@ const Navigation = ({ data }) => {
                 ))}
               </div>
 
-              {/* Mobile CTA */}
+              {/* Mobile CTA Button */}
               <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="mt-12"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mt-10"
               >
                 <a 
-                  href={data.cta.href} 
-                  className="block w-full py-5 bg-pink-600 text-white text-center rounded-2xl font-bold uppercase tracking-widest text-xs shadow-xl shadow-pink-200"
+                  href={data.cta?.href || "#"} 
+                  onClick={toggleMenu}
+                  className="block w-full py-4 bg-pink-600 text-white text-center rounded-xl font-bold uppercase tracking-[0.2em] text-[10px] shadow-lg active:bg-pink-700"
                 >
-                  {data.cta.label}
+                  {data.cta?.label || "Support"}
                 </a>
-                <p className="text-center mt-10 text-[9px] text-slate-400 uppercase tracking-[0.4em]">
-                  Elevating Beauty &copy; 2026
-                </p>
+                
+                {/* Social Footer */}
+                <div className="flex justify-center gap-6 mt-10 text-slate-400">
+                  <span className="text-[10px] uppercase tracking-widest font-bold">Instagram</span>
+                  <span className="text-[10px] uppercase tracking-widest font-bold">Pinterest</span>
+                </div>
               </motion.div>
             </div>
           </motion.div>
