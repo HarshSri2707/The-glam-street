@@ -297,6 +297,137 @@
 
 // export default Navigation;
 
+// import { useState, useEffect } from 'react';
+// import { motion, AnimatePresence } from 'framer-motion';
+
+// const Navigation = ({ data }) => {
+//   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+//   const [isScrolled, setIsScrolled] = useState(false);
+
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       // 10px scroll hote hi state change
+//       setIsScrolled(window.scrollY > 10);
+//     };
+//     window.addEventListener('scroll', handleScroll);
+//     return () => window.removeEventListener('scroll', handleScroll);
+//   }, []);
+
+//   const toggleMenu = () => {
+//     setIsMobileMenuOpen(!isMobileMenuOpen);
+//     document.body.style.overflow = !isMobileMenuOpen ? 'hidden' : 'unset';
+//   };
+
+//   return (
+//     <>
+//       {/* Main Nav */}
+//       <nav 
+//         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+//           isScrolled || isMobileMenuOpen 
+//             ? 'bg-white/90 backdrop-blur-md shadow-sm py-2' 
+//             : 'bg-transparent py-4'
+//         }`}
+//       >
+//         <div className="max-w-7xl mx-auto px-5 sm:px-10">
+//           <div className="flex justify-between items-center h-14 md:h-16">
+            
+//             {/* Logo */}
+//             <a href="/" className="relative z-[110]">
+//               <h1 className={`font-serif text-xl md:text-2xl font-bold tracking-tighter transition-colors duration-300 ${
+//                 !isScrolled && !isMobileMenuOpen ? 'text-white' : 'text-slate-900'
+//               }`}>
+//                 {data.logo}<span className="text-pink-500">.</span>
+//               </h1>
+//             </a>
+
+//             {/* Desktop Menu */}
+//             <div className="hidden lg:flex items-center gap-10">
+//               {data.menu.map((item, index) => (
+//                 <a
+//                   key={index}
+//                   href={item.href}
+//                   className={`text-[11px] font-bold uppercase tracking-[0.2em] transition-colors ${
+//                     isScrolled ? 'text-slate-600 hover:text-pink-600' : 'text-white/80 hover:text-white'
+//                   }`}
+//                 >
+//                   {item.label}
+//                 </a>
+//               ))}
+//             </div>
+
+//             {/* Icons & Toggle */}
+//             <div className="flex items-center gap-3">
+//               <button className={`p-2 transition-colors ${!isScrolled && !isMobileMenuOpen ? 'text-white' : 'text-slate-700'}`}>
+//                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+//                 </svg>
+//               </button>
+
+//               {/* Mobile Menu Toggle - Unique Design */}
+//               <button
+//                 className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 z-[110]"
+//                 onClick={toggleMenu}
+//               >
+//                 <span className={`h-0.5 w-6 transition-all duration-300 ${
+//                   isMobileMenuOpen ? 'rotate-45 translate-y-2 bg-slate-900' : (!isScrolled ? 'bg-white' : 'bg-slate-900')
+//                 }`} />
+//                 <span className={`h-0.5 w-6 transition-all duration-300 ${
+//                   isMobileMenuOpen ? 'opacity-0' : (!isScrolled ? 'bg-white' : 'bg-slate-900')
+//                 }`} />
+//                 <span className={`h-0.5 w-6 transition-all duration-300 ${
+//                   isMobileMenuOpen ? '-rotate-45 -translate-y-2 bg-slate-900' : (!isScrolled ? 'bg-white' : 'bg-slate-900')
+//                 }`} />
+//               </button>
+
+//               {/* Desktop CTA */}
+//               <a href={data.cta.href} className="hidden md:block px-7 py-2.5 bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-pink-700 transition-all shadow-lg shadow-pink-500/20">
+//                 {data.cta.label}
+//               </a>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Mobile Fullscreen Menu */}
+//         <AnimatePresence>
+//           {isMobileMenuOpen && (
+//             <motion.div
+//               initial={{ x: '100%' }}
+//               animate={{ x: 0 }}
+//               exit={{ x: '100%' }}
+//               transition={{ type: "spring", damping: 25, stiffness: 200 }}
+//               className="fixed inset-0 bg-white z-[100] flex flex-col justify-center px-10"
+//             >
+//               <div className="space-y-8">
+//                 {data.menu.map((item, index) => (
+//                   <motion.a
+//                     initial={{ opacity: 0, x: 20 }}
+//                     animate={{ opacity: 1, x: 0 }}
+//                     transition={{ delay: index * 0.1 }}
+//                     key={index}
+//                     href={item.href}
+//                     onClick={toggleMenu}
+//                     className="block text-4xl font-serif italic text-slate-900"
+//                   >
+//                     {item.label}
+//                   </motion.a>
+//                 ))}
+//               </div>
+              
+//               <div className="absolute bottom-12 left-10 right-10">
+//                 <a href={data.cta.href} className="block w-full py-5 bg-slate-900 text-white text-center rounded-2xl font-bold uppercase tracking-[0.2em] text-xs">
+//                   {data.cta.label}
+//                 </a>
+//               </div>
+//             </motion.div>
+//           )}
+//         </AnimatePresence>
+//       </nav>
+//     </>
+//   );
+// };
+
+// export default Navigation;
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -306,8 +437,7 @@ const Navigation = ({ data }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // 10px scroll hote hi state change
-      setIsScrolled(window.scrollY > 10);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -315,114 +445,131 @@ const Navigation = ({ data }) => {
 
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-    document.body.style.overflow = !isMobileMenuOpen ? 'hidden' : 'unset';
+    if (!isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
   };
 
   return (
-    <>
-      {/* Main Nav */}
-      <nav 
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
-          isScrolled || isMobileMenuOpen 
-            ? 'bg-white/90 backdrop-blur-md shadow-sm py-2' 
-            : 'bg-transparent py-4'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-5 sm:px-10">
-          <div className="flex justify-between items-center h-14 md:h-16">
-            
-            {/* Logo */}
-            <a href="/" className="relative z-[110]">
-              <h1 className={`font-serif text-xl md:text-2xl font-bold tracking-tighter transition-colors duration-300 ${
-                !isScrolled && !isMobileMenuOpen ? 'text-white' : 'text-slate-900'
-              }`}>
-                {data.logo}<span className="text-pink-500">.</span>
-              </h1>
-            </a>
+    <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
+      isScrolled || isMobileMenuOpen ? 'bg-white shadow-md' : 'bg-transparent'
+    }`}>
+      {/* Top Guard */}
+      <div className="absolute -top-10 left-0 right-0 h-10 bg-white" />
 
-            {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center gap-10">
-              {data.menu.map((item, index) => (
-                <a
-                  key={index}
-                  href={item.href}
-                  className={`text-[11px] font-bold uppercase tracking-[0.2em] transition-colors ${
-                    isScrolled ? 'text-slate-600 hover:text-pink-600' : 'text-white/80 hover:text-white'
-                  }`}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
+      <div className="max-w-7xl mx-auto px-5 sm:px-10">
+        <div className="flex justify-between items-center h-16 lg:h-20">
+          
+          {/* Logo */}
+          <a href="/" className="relative z-[120]">
+            <h1 className={`font-serif text-xl md:text-2xl font-bold tracking-tighter transition-colors ${
+              !isScrolled && !isMobileMenuOpen ? 'text-white' : 'text-slate-900'
+            }`}>
+              {data.logo}<span className="text-pink-500">.</span>
+            </h1>
+          </a>
 
-            {/* Icons & Toggle */}
-            <div className="flex items-center gap-3">
-              <button className={`p-2 transition-colors ${!isScrolled && !isMobileMenuOpen ? 'text-white' : 'text-slate-700'}`}>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-
-              {/* Mobile Menu Toggle - Unique Design */}
-              <button
-                className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 z-[110]"
-                onClick={toggleMenu}
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center gap-10">
+            {data.menu.map((item, index) => (
+              <a
+                key={index}
+                href={item.href}
+                className={`text-[11px] font-bold uppercase tracking-[0.2em] transition-colors ${
+                  isScrolled ? 'text-slate-700 hover:text-pink-600' : 'text-white/80 hover:text-white'
+                }`}
               >
-                <span className={`h-0.5 w-6 transition-all duration-300 ${
-                  isMobileMenuOpen ? 'rotate-45 translate-y-2 bg-slate-900' : (!isScrolled ? 'bg-white' : 'bg-slate-900')
-                }`} />
-                <span className={`h-0.5 w-6 transition-all duration-300 ${
-                  isMobileMenuOpen ? 'opacity-0' : (!isScrolled ? 'bg-white' : 'bg-slate-900')
-                }`} />
-                <span className={`h-0.5 w-6 transition-all duration-300 ${
-                  isMobileMenuOpen ? '-rotate-45 -translate-y-2 bg-slate-900' : (!isScrolled ? 'bg-white' : 'bg-slate-900')
-                }`} />
-              </button>
-
-              {/* Desktop CTA */}
-              <a href={data.cta.href} className="hidden md:block px-7 py-2.5 bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-pink-700 transition-all shadow-lg shadow-pink-500/20">
-                {data.cta.label}
+                {item.label}
               </a>
-            </div>
+            ))}
+          </div>
+
+          {/* Right Actions */}
+          <div className="flex items-center gap-3 relative z-[120]">
+            <button className={`p-2 transition-colors ${!isScrolled && !isMobileMenuOpen ? 'text-white' : 'text-slate-700'}`}>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
+
+            {/* Mobile Toggle */}
+            <button
+              className="lg:hidden p-2 text-slate-700"
+              onClick={toggleMenu}
+            >
+              <div className="w-6 flex flex-col items-end gap-1.5">
+                <span className={`h-0.5 transition-all duration-300 rounded-full ${isMobileMenuOpen ? 'w-6 rotate-45 translate-y-2 bg-slate-900' : `w-6 ${!isScrolled ? 'bg-white' : 'bg-slate-900'}`}`} />
+                <span className={`h-0.5 transition-all duration-300 rounded-full ${isMobileMenuOpen ? 'opacity-0' : `w-4 ${!isScrolled ? 'bg-white' : 'bg-slate-900'}`}`} />
+                <span className={`h-0.5 transition-all duration-300 rounded-full ${isMobileMenuOpen ? 'w-6 -rotate-45 -translate-y-2 bg-slate-900' : `w-5 ${!isScrolled ? 'bg-white' : 'bg-slate-900'}`}`} />
+              </div>
+            </button>
+
+            {/* Desktop CTA - Now Pink */}
+            <a href={data.cta.href} className="hidden md:block px-6 py-2.5 bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-pink-700 transition-all shadow-lg shadow-pink-500/20">
+              {data.cta.label}
+            </a>
           </div>
         </div>
+      </div>
 
-        {/* Mobile Fullscreen Menu */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-0 bg-white z-[100] flex flex-col justify-center px-10"
-            >
-              <div className="space-y-8">
+      {/* --- Mobile Menu Overlay --- */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-white z-[110] lg:hidden flex flex-col"
+          >
+            {/* Luxe Decorative Elements */}
+            <div className="absolute top-20 right-[-10%] w-64 h-64 bg-pink-100/40 rounded-full blur-[80px] -z-10" />
+            <div className="absolute bottom-10 left-[-10%] w-80 h-80 bg-rose-50/50 rounded-full blur-[100px] -z-10" />
+
+            <div className="flex-grow flex flex-col justify-center px-8 pt-16">
+              <div className="space-y-6">
                 {data.menu.map((item, index) => (
-                  <motion.a
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                  <motion.div
                     key={index}
-                    href={item.href}
-                    onClick={toggleMenu}
-                    className="block text-4xl font-serif italic text-slate-900"
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="border-b border-gray-50 pb-5"
                   >
-                    {item.label}
-                  </motion.a>
+                    <a
+                      href={item.href}
+                      onClick={toggleMenu}
+                      className="block text-4xl font-serif italic text-slate-900 active:text-pink-600 transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  </motion.div>
                 ))}
               </div>
-              
-              <div className="absolute bottom-12 left-10 right-10">
-                <a href={data.cta.href} className="block w-full py-5 bg-slate-900 text-white text-center rounded-2xl font-bold uppercase tracking-[0.2em] text-xs">
+
+              {/* Mobile CTA Button - Vibrant Pink */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="mt-12"
+              >
+                <a 
+                  href={data.cta.href} 
+                  className="block w-full py-5 bg-pink-600 text-white text-center rounded-2xl font-bold uppercase tracking-widest text-xs shadow-xl shadow-pink-200"
+                >
                   {data.cta.label}
                 </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
-    </>
+                <p className="text-center mt-10 text-[9px] text-slate-400 uppercase tracking-[0.4em]">
+                  Elevating Beauty &copy; 2026
+                </p>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
 };
 

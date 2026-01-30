@@ -304,16 +304,7 @@ const HeroSection = ({ data }) => {
         <div className="max-w-4xl">
           
           {/* Eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3 mb-6"
-          >
-            <span className="w-8 h-[1px] bg-pink-500" />
-            <p className="text-white text-[10px] uppercase tracking-[0.4em] font-bold">
-              {data.eyebrow || "The Glam Street"}
-            </p>
-          </motion.div>
+       
 
           {/* Headline - Responsive Sizes to prevent cutting */}
           <motion.h1
@@ -346,7 +337,7 @@ const HeroSection = ({ data }) => {
           >
             <a
               href={data.cta.primary.href}
-              className="px-10 py-4 bg-white text-black text-[11px] font-bold uppercase tracking-widest text-center hover:bg-pink-600 hover:text-white transition-all duration-300"
+              className="px-10 py-4 bg-white text-black text-[11px] font-bold uppercase tracking-widest text-center rounded-full hover:bg-pink-600 hover:text-white transition-all duration-300"
             >
               {data.cta.primary.label}
             </a>
