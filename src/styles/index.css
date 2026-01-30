@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply font-sans antialiased bg-cream-50 text-charcoal-700;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-cream-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-charcoal-300 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-charcoal-400;
+  }
+}
+
+@layer components {
+  /* Premium button styles */
+  .btn-primary {
+    @apply px-8 py-3 bg-charcoal-700 text-cream-50 rounded-full font-medium 
+           transition-all duration-300 hover:bg-charcoal-600 hover:shadow-soft-lg
+           active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-3 bg-transparent border-2 border-charcoal-700 text-charcoal-700 
+           rounded-full font-medium transition-all duration-300 
+           hover:bg-charcoal-700 hover:text-cream-50 active:scale-95;
+  }
+
+  /* Text styles with Lora font */
+  .heading-1 {
+    @apply font-lora text-4xl md:text-5xl lg:text-6xl font-bold text-charcoal-700 leading-tight;
+  }
+
+  .heading-2 {
+    @apply font-lora text-3xl md:text-4xl lg:text-5xl font-semibold text-charcoal-700 leading-tight;
+  }
+
+  .heading-3 {
+    @apply font-lora text-2xl md:text-3xl font-semibold text-charcoal-700;
+  }
+
+  .heading-4 {
+    @apply font-lora text-xl md:text-2xl font-medium text-charcoal-700;
+  }
+
+  /* Body text with proper spacing */
+  .body-text {
+    @apply text-base text-charcoal-600 leading-relaxed;
+  }
+
+  .body-text-justify {
+    @apply text-base text-charcoal-600 leading-relaxed text-justify;
+  }
+
+  /* Product card hover effect */
+  .product-card {
+    @apply bg-white rounded-2xl overflow-hidden shadow-soft 
+           transition-all duration-300 hover:shadow-soft-lg hover:-translate-y-1;
+  }
+
+  /* Shimmer loading effect */
+  .shimmer {
+    @apply relative overflow-hidden bg-gradient-to-r from-cream-200 via-cream-100 to-cream-200 
+           bg-[length:1000px_100%] animate-shimmer;
+  }
+
+  /* Section padding consistency */
+  .section-padding {
+    @apply py-12 md:py-16 lg:py-20 px-4 md:px-6 lg:px-8;
+  }
+
+  .section-padding-tight {
+    @apply py-8 md:py-10 lg:py-12 px-4 md:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-md;
+  }
+
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-rose-400 to-gold-400 bg-clip-text text-transparent;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Aspect ratio utilities for images */
+  .aspect-product {
+    aspect-ratio: 3 / 4;
+  }
+
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  /* Touch-friendly tap targets */
+  .tap-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+}
