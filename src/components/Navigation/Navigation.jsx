@@ -585,15 +585,17 @@ const Navigation = ({ data }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-    if (!isMobileMenuOpen) {
+    const newState = !isMobileMenuOpen;
+    setIsMobileMenuOpen(newState);
+    // Body scroll lock
+    if (newState) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -601,18 +603,19 @@ const Navigation = ({ data }) => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
-      isScrolled || isMobileMenuOpen ? 'bg-white shadow-md' : 'bg-transparent'
-    }`}>
-      {/* Top Guard */}
-      <div className="absolute -top-10 left-0 right-0 h-10 bg-white" />
-
-      <div className="max-w-7xl mx-auto px-5 sm:px-10">
-        <div className="flex justify-between items-center h-16 lg:h-20">
+    <nav 
+      className={`fixed top-0 inset-x-0 z-[150] transition-all duration-500 ease-in-out ${
+        isScrolled || isMobileMenuOpen 
+          ? 'bg-white shadow-md py-3' 
+          : 'bg-transparent py-5'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="flex justify-between items-center h-12">
           
-          {/* Logo */}
-          <a href="/" className="relative z-[120]">
-            <h1 className={`font-serif text-xl md:text-2xl font-bold tracking-tighter transition-colors ${
+          {/* Logo - Stays visible and interactive */}
+          <a href="/" className="relative z-[200]">
+            <h1 className={`font-serif text-xl md:text-2xl font-bold tracking-tighter transition-colors duration-300 ${
               !isScrolled && !isMobileMenuOpen ? 'text-white' : 'text-slate-900'
             }`}>
               {data.logo}<span className="text-pink-500">.</span>
@@ -635,27 +638,40 @@ const Navigation = ({ data }) => {
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-3 relative z-[120]">
-            <button className={`p-2 transition-colors ${!isScrolled && !isMobileMenuOpen ? 'text-white' : 'text-slate-700'}`}>
+          <div className="flex items-center gap-4 relative z-[200]">
+            {/* Search Icon */}
+            <button className={`p-1 transition-colors ${!isScrolled && !isMobileMenuOpen ? 'text-white' : 'text-slate-700'}`}>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
 
-            {/* Mobile Toggle */}
+            {/* Mobile Toggle - Enhanced Logic */}
             <button
-              className="lg:hidden p-2 text-slate-700"
+              className="lg:hidden p-2 focus:outline-none"
               onClick={toggleMenu}
             >
               <div className="w-6 flex flex-col items-end gap-1.5">
-                <span className={`h-0.5 transition-all duration-300 rounded-full ${isMobileMenuOpen ? 'w-6 rotate-45 translate-y-2 bg-slate-900' : `w-6 ${!isScrolled ? 'bg-white' : 'bg-slate-900'}`}`} />
-                <span className={`h-0.5 transition-all duration-300 rounded-full ${isMobileMenuOpen ? 'opacity-0' : `w-4 ${!isScrolled ? 'bg-white' : 'bg-slate-900'}`}`} />
-                <span className={`h-0.5 transition-all duration-300 rounded-full ${isMobileMenuOpen ? 'w-6 -rotate-45 -translate-y-2 bg-slate-900' : `w-5 ${!isScrolled ? 'bg-white' : 'bg-slate-900'}`}`} />
+                <span className={`h-0.5 transition-all duration-300 rounded-full ${
+                  isMobileMenuOpen 
+                    ? 'w-6 rotate-45 translate-y-2 bg-slate-900' 
+                    : `w-6 ${!isScrolled ? 'bg-white' : 'bg-slate-900'}`
+                }`} />
+                <span className={`h-0.5 transition-all duration-300 rounded-full ${
+                  isMobileMenuOpen 
+                    ? 'opacity-0' 
+                    : `w-4 ${!isScrolled ? 'bg-white' : 'bg-slate-900'}`
+                }`} />
+                <span className={`h-0.5 transition-all duration-300 rounded-full ${
+                  isMobileMenuOpen 
+                    ? 'w-6 -rotate-45 -translate-y-2 bg-slate-900' 
+                    : `w-5 ${!isScrolled ? 'bg-white' : 'bg-slate-900'}`
+                }`} />
               </div>
             </button>
 
-            {/* Desktop CTA - Pink */}
-            <a href={data.cta.href} className="hidden md:block px-6 py-2.5 bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-pink-700 transition-all shadow-lg shadow-pink-500/20">
+            {/* Desktop CTA */}
+            <a href={data.cta.href} className="hidden md:block px-6 py-2.5 bg-pink-600 text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:shadow-pink-500/20 shadow-lg">
               {data.cta.label}
             </a>
           </div>
@@ -666,31 +682,29 @@ const Navigation = ({ data }) => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-white z-[110] lg:hidden overflow-y-auto overscroll-contain"
+            initial={{ y: '-100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '-100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed inset-0 bg-white z-[180] lg:hidden flex flex-col overflow-y-auto"
           >
-            {/* Luxe Decorative Elements */}
-            <div className="absolute top-20 right-[-10%] w-64 h-64 bg-pink-100/40 rounded-full blur-[80px] pointer-events-none" />
-            <div className="absolute bottom-10 left-[-10%] w-80 h-80 bg-rose-50/50 rounded-full blur-[100px] pointer-events-none" />
+            {/* Background Decor */}
+            <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-pink-50/40 via-white to-transparent -z-10" />
 
-            {/* Content Container - Now Scrollable & Responsive */}
-            <div className="min-h-full flex flex-col justify-between px-6 sm:px-8 pt-20 pb-8">
-              {/* Menu Items - Responsive Text Sizes */}
-              <div className="flex-1 flex flex-col justify-center space-y-3 sm:space-y-4 md:space-y-6 py-4">
+            <div className="flex flex-col h-full px-8 pt-28 pb-10">
+              {/* Menu Items */}
+              <div className="flex flex-col space-y-2">
                 {data.menu.map((item, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="border-b border-gray-50 pb-2 sm:pb-3"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + index * 0.05 }}
                   >
                     <a
                       href={item.href}
                       onClick={toggleMenu}
-                      className="block text-xl xs:text-2xl sm:text-3xl md:text-4xl font-serif italic text-slate-900 active:text-pink-600 transition-colors leading-tight"
+                      className="block py-4 text-2xl font-serif italic text-slate-800 border-b border-slate-50 hover:text-pink-600"
                     >
                       {item.label}
                     </a>
@@ -698,23 +712,25 @@ const Navigation = ({ data }) => {
                 ))}
               </div>
 
-              {/* Mobile CTA Button - Vibrant Pink */}
+              {/* Bottom Section of Menu */}
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="flex-shrink-0 pt-4 sm:pt-6 pb-4"
+                className="mt-auto pt-10"
               >
                 <a 
                   href={data.cta.href} 
                   onClick={toggleMenu}
-                  className="block w-full py-3 sm:py-4 md:py-5 bg-pink-600 text-white text-center rounded-2xl font-bold uppercase tracking-widest text-xs shadow-xl shadow-pink-200 active:scale-95 transition-transform"
+                  className="block w-full py-4 bg-slate-900 text-white text-center rounded-xl font-bold uppercase tracking-widest text-[10px] shadow-2xl shadow-slate-200"
                 >
                   {data.cta.label}
                 </a>
-                <p className="text-center mt-4 sm:mt-6 md:mt-10 text-[9px] text-slate-400 uppercase tracking-[0.4em]">
-                  Elevating Beauty &copy; 2026
-                </p>
+                
+                <div className="flex justify-center gap-8 mt-8">
+                  <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Instagram</span>
+                  <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Pinterest</span>
+                </div>
               </motion.div>
             </div>
           </motion.div>
