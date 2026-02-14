@@ -7,6 +7,9 @@ import Home from './pages/Home';
 import BlogPage from './pages/BlogPage';
 import contentData from './data/content.json';
 import AboutUs from './pages/AboutUs';
+import Shop from './pages/Shop';
+import Blog from './pages/Blog';
+import BlogDetail from './pages/BlogDetail';
 
 function App() {
   return (
@@ -20,10 +23,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
-            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogDetail />} />
             
             {/* Placeholder routes - you can add these pages later */}
-            <Route path="/shop" element={<ComingSoon page="Shop" />} />
+            <Route path="/shop" element={<Shop page="Shop" />} />
             <Route path="/routines" element={<ComingSoon page="Routines" />} />
             <Route path="/community" element={<ComingSoon page="Community" />} />
             <Route path="/support" element={<ComingSoon page="Support" />} />

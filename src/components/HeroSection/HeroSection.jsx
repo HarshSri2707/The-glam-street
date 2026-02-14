@@ -511,7 +511,7 @@ const HeroSection = ({ data }) => {
   }, [heroImages.length]);
 
   return (
-    <section className="relative w-full bg-black overflow-hidden h-[600px] sm:h-[700px] lg:h-[85vh] xl:h-screen">
+    <section className="relative w-full bg-black overflow-hidden h-[600px] sm:h-[700px] lg:h-[85vh] xl:h-screen pt-16 lg:pt-20">
       
       {/* Background Container */}
       <div className="absolute inset-0 z-0 w-full h-full">
